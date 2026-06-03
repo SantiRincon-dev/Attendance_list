@@ -1,13 +1,21 @@
+Style · CSS
 :root {
-  --azul-principal: #0b2e4a;     
-  --azul-secundario: #1f6aa5;    
-  --azul-claro: #e8f1fb;         
+  --azul-principal: #0b2e4a;
+  --azul-secundario: #1f6aa5;
+  --azul-claro: #e8f1fb;
   --gris-fondo: #f5f7fa;
   --blanco: #ffffff;
   --texto: #1c1c1c;
   --sombra: rgba(0, 0, 0, 0.08);
+  --verde: #1a7a4a;
+  --verde-claro: #d4f0e2;
 }
-
+ 
+* {
+  box-sizing: border-box;
+  transition: all 0.15s ease;
+}
+ 
 body {
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   margin: 0;
@@ -16,8 +24,7 @@ body {
   color: var(--texto);
   text-align: center;
 }
-
-
+ 
 h1 {
   background: var(--azul-principal);
   color: white;
@@ -26,25 +33,23 @@ h1 {
   font-weight: 600;
   letter-spacing: 0.5px;
 }
-
+ 
 h2 {
   margin-top: 30px;
   color: var(--azul-principal);
   font-weight: 600;
 }
-
-
+ 
+/* ── LOGIN ── */
 #login {
-  margin-top: 40px;
+  margin: 40px auto;
   background: var(--blanco);
   width: 300px;
-  margin-left: auto;
-  margin-right: auto;
   padding: 25px;
   border-radius: 14px;
   box-shadow: 0 6px 20px var(--sombra);
 }
-
+ 
 #login input {
   width: 90%;
   padding: 10px;
@@ -52,31 +57,90 @@ h2 {
   border: 1px solid #d0d7de;
   border-radius: 8px;
   outline: none;
-  transition: 0.2s;
 }
-
+ 
 #login input:focus {
   border-color: var(--azul-secundario);
   box-shadow: 0 0 5px rgba(31, 106, 165, 0.3);
 }
-
-
+ 
+/* ── SELECTOR DE GRUPOS ── */
+.grupos-container {
+  margin: 20px auto;
+  background: var(--blanco);
+  padding: 18px 20px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 560px;
+  box-shadow: 0 6px 18px var(--sombra);
+}
+ 
+.grupos-label {
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  color: var(--azul-principal);
+  font-size: 15px;
+}
+ 
+.grupos-botones {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+ 
+.btn-grupo {
+  background: var(--gris-fondo);
+  color: var(--azul-principal);
+  border: 2px solid var(--azul-principal);
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: none;
+  transition: all 0.2s ease;
+}
+ 
+.btn-grupo:hover {
+  background: var(--azul-claro);
+  transform: translateY(-2px);
+}
+ 
+.btn-grupo.activo {
+  background: var(--azul-principal);
+  color: white;
+  transform: none;
+  box-shadow: 0 4px 12px rgba(11, 46, 74, 0.35);
+}
+ 
+.grupo-activo-label {
+  margin: 12px 0 0 0;
+  font-size: 13px;
+  color: #555;
+}
+ 
+.grupo-activo-label strong {
+  color: var(--azul-principal);
+}
+ 
+/* ── FECHA ── */
 .fecha-container {
-  margin: 25px auto;
+  margin: 20px auto;
   background: var(--blanco);
   padding: 15px;
   border-radius: 14px;
   width: 320px;
   box-shadow: 0 6px 18px var(--sombra);
 }
-
+ 
 #fecha {
   padding: 8px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
-
-
+ 
+/* ── LECTOR QR ── */
 #reader {
   width: 340px;
   margin: 25px auto;
@@ -85,10 +149,10 @@ h2 {
   box-shadow: 0 8px 22px var(--sombra);
   background: white;
 }
-
-
+ 
+/* ── TABLA ── */
 table {
-  margin: 30px auto;
+  margin: 20px auto;
   border-collapse: collapse;
   width: 92%;
   background: var(--blanco);
@@ -96,51 +160,67 @@ table {
   overflow: hidden;
   box-shadow: 0 8px 22px var(--sombra);
 }
-
+ 
 th {
   background: var(--azul-principal);
   color: white;
   padding: 14px;
   font-weight: 500;
 }
-
+ 
 td {
   padding: 12px;
   border-bottom: 1px solid #eef2f6;
 }
-
-
+ 
 tr:nth-child(even) {
   background: #f9fbfd;
 }
-
-
+ 
 tr:hover {
   background: var(--azul-claro);
-  transition: 0.2s;
 }
-
+ 
 .estado {
   cursor: pointer;
   font-size: 20px;
   transition: transform 0.2s ease;
 }
-
+ 
 .estado:hover {
   transform: scale(1.2);
 }
-
+ 
 .asistio {
   background: #d9ecff !important;
   color: var(--azul-principal);
   font-weight: 600;
 }
-
-
+ 
+/* ── CONTEO DE ASISTENCIA ── */
+.conteo-container {
+  margin: 10px auto 20px;
+  background: var(--verde-claro);
+  color: var(--verde);
+  padding: 14px 24px;
+  border-radius: 12px;
+  width: fit-content;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(26, 122, 74, 0.15);
+  border: 1.5px solid #a8dfc0;
+}
+ 
+#conteo-total {
+  font-weight: 400;
+  color: #444;
+}
+ 
+/* ── BOTONES GENERALES ── */
 .botones {
   margin: 25px;
 }
-
+ 
 button {
   background: var(--azul-principal);
   color: white;
@@ -153,13 +233,9 @@ button {
   transition: all 0.25s ease;
   box-shadow: 0 4px 10px var(--sombra);
 }
-
+ 
 button:hover {
   background: var(--azul-secundario);
   transform: translateY(-2px);
 }
-
-
-* {
-  transition: all 0.15s ease;
-}
+ 
