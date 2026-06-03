@@ -1,75 +1,89 @@
-
-raw
-Index · HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asistencia QR</title>
+
   <link rel="stylesheet" href="./style.css">
   <link rel="manifest" href="./manifest.json">
+
   <meta name="theme-color" content="#0b2e4a">
+
   <script src="https://unpkg.com/html5-qrcode"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </head>
- 
+
 <body>
- 
+
   <h1>Control de Asistencia</h1>
- 
+
   <!-- LOGIN -->
   <div id="login">
     <input type="email" id="email" placeholder="Correo">
     <input type="password" id="password" placeholder="Contraseña">
     <button onclick="login()">Iniciar sesión</button>
   </div>
- 
+
   <!-- APP -->
   <div id="app" style="display:none;">
- 
+
     <!-- SELECTOR DE GRUPO -->
     <div class="grupos-container">
+
       <p class="grupos-label">👥 Selecciona el grupo:</p>
+
       <div class="grupos-botones">
         <button class="btn-grupo activo" onclick="cambiarGrupo('grupo1', this)">Grupo 1</button>
         <button class="btn-grupo" onclick="cambiarGrupo('grupo2', this)">Grupo 2</button>
         <button class="btn-grupo" onclick="cambiarGrupo('grupo3', this)">Grupo 3</button>
         <button class="btn-grupo" onclick="cambiarGrupo('grupo4', this)">Grupo 4</button>
       </div>
-      <p id="grupo-activo-label" class="grupo-activo-label">📌 Grupo activo: <strong>Grupo 1</strong></p>
+
+      <p id="grupo-activo-label" class="grupo-activo-label">
+        📌 Grupo activo: <strong>Grupo 1</strong>
+      </p>
+
     </div>
- 
+
     <!-- FECHA -->
     <div class="fecha-container">
-      <label>📅 Fecha de asistencia:</label>
+      <label for="fecha">📅 Fecha de asistencia:</label>
       <input type="date" id="fecha">
     </div>
- 
+
     <!-- LECTOR QR -->
     <div id="reader"></div>
- 
+
     <!-- TABLA -->
     <h2>Lista de Estudiantes</h2>
-    <table id="tabla">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Correo</th>
-          <th>Programa</th>
-          <th>Asistencia</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
- 
+
+    <div class="tabla-container">
+
+      <table id="tabla">
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Programa</th>
+            <th>Asistencia</th>
+          </tr>
+        </thead>
+
+        <tbody></tbody>
+
+      </table>
+
+    </div>
+
     <!-- CONTEO -->
     <div class="conteo-container">
       <span id="conteo-asistencia">✅ Asistieron: 0 estudiantes</span>
       <span id="conteo-total"> de 0 registrados</span>
     </div>
- 
+
     <!-- BOTONES -->
     <div class="botones">
       <button onclick="exportar()">📊 Exportar Excel</button>
@@ -77,35 +91,74 @@ Index · HTML
       <button onclick="borrarDatosFecha()">🗑 Borrar datos</button>
       <button onclick="cargarDatos()">🔄 Recargar datos</button>
     </div>
- 
+
   </div>
- 
+
+  <!-- MODAL INSTALACIÓN -->
+  <div id="installModal"
+       style="display:none;
+              position:fixed;
+              top:0;
+              left:0;
+              width:100%;
+              height:100%;
+              background:rgba(0,0,0,0.6);
+              justify-content:center;
+              align-items:center;
+              z-index:9999;">
+
+    <div style="background:white;
+                padding:20px;
+                border-radius:12px;
+                text-align:center;
+                width:80%;
+                max-width:400px;">
+
+      <h2>Instalar aplicación</h2>
+
+      <p>
+        Instala esta app para usarla más rápido y sin navegador
+      </p>
+
+      <button id="installBtn">
+        Instalar
+      </button>
+
+      <br><br>
+
+      <button onclick="document.getElementById('installModal').style.display='none'">
+        Cerrar
+      </button>
+
+    </div>
+
+  </div>
+
   <!-- SERVICE WORKER -->
   <script>
     if ("serviceWorker" in navigator) {
+
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/Attendance_list/sw.js", {
-          scope: "/Attendance_list/"
-        })
-        .then((reg) => console.log("✅ Service Worker activo:", reg.scope))
-        .catch((err) => console.error("❌ Error SW:", err));
+
+        navigator.serviceWorker.register(
+          "/Attendance_list/sw.js",
+          {
+            scope: "/Attendance_list/"
+          }
+        )
+        .then(reg =>
+          console.log("✅ Service Worker activo:", reg.scope)
+        )
+        .catch(err =>
+          console.error("❌ Error SW:", err)
+        );
+
       });
+
     }
   </script>
- 
-  <!-- MODAL INSTALACIÓN -->
-  <div id="installModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:9999;">
-    <div style="background:white; padding:20px; border-radius:12px; text-align:center; width:80%;">
-      <h2>Instalar aplicación</h2>
-      <p>Instala esta app para usarla más rápido y sin navegador</p>
-      <button id="installBtn" style="padding:10px 20px; margin-top:10px;">Instalar</button>
-      <br><br>
-      <button onclick="document.getElementById('installModal').style.display='none'">Cerrar</button>
-    </div>
-  </div>
- 
+
   <script type="module" src="./app.js"></script>
- 
+
 </body>
 </html>
- 
