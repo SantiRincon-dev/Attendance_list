@@ -19,15 +19,10 @@ const db = getDatabase(app);
 const auth = getAuth(app);
  
 let scanner;
- 
-// ─── GRUPOS ────────────────────────────────────────────────────────────────
-// Cada grupo tiene su propio objeto de estudiantes.
-// Reemplaza estos objetos con los estudiantes reales de cada grupo.
- 
+
 const estudiantesPorGrupo = {
   grupo1: {
     "E000000000285118": { nombre: "ARENAS SALTOS, MARIA JOSE", correo: "mariaaresal@unisabana.edu.co", programa: "ENFERMERIA" },
-    // ... agrega más estudiantes del grupo 1
   },
   grupo2: {
     "E000000000285118": { nombre: "ARENAS SALTOS, MARIA JOSE", correo: "mariaaresal@unisabana.edu.co", programa: "ENFERMERIA" },
@@ -40,14 +35,11 @@ const estudiantesPorGrupo = {
   }
 };
  
-let grupoActivo = "grupo1";                  // grupo seleccionado
+let grupoActivo = "grupo1";                 
 let estudiantes = estudiantesPorGrupo[grupoActivo];
 let asistenciaPorFecha = {};
 let fechaActiva;
- 
-// ─── UTILIDAD: fecha local Colombia (UTC-5) ────────────────────────────────
-// CORRECCIÓN: no usar toISOString() porque convierte a UTC y adelanta el día
-// cuando son más de las 7pm en Colombia.
+
 function fechaLocalHoy() {
   const hoy = new Date();
   const year = hoy.getFullYear();
@@ -63,7 +55,7 @@ window.login = async function () {
  
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    alert("✅ Sesión iniciada");
+    alert("Sesión iniciada");
  
     document.getElementById("login").style.display = "none";
     document.getElementById("app").style.display = "block";
@@ -79,7 +71,7 @@ window.login = async function () {
   }
 };
  
-// ─── INICIALIZACIÓN ────────────────────────────────────────────────────────
+
 window.addEventListener("DOMContentLoaded", () => {
   fechaActiva = fechaLocalHoy();           // ← fecha local correcta
   document.getElementById("fecha").value = fechaActiva;
@@ -100,23 +92,21 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
  
-// ─── CAMBIO DE GRUPO ────────────────────────────────────────────────────────
+
 window.cambiarGrupo = async function (nuevoGrupo, btnEl) {
   grupoActivo = nuevoGrupo;
   estudiantes = estudiantesPorGrupo[grupoActivo];
   asistenciaPorFecha = {};
- 
-  // Actualiza botones
+
   document.querySelectorAll(".btn-grupo").forEach(b => b.classList.remove("activo"));
   btnEl.classList.add("activo");
  
-  // Etiqueta informativa
   const nombre = btnEl.textContent;
   document.getElementById("grupo-activo-label").innerHTML =
-    `📌 Grupo activo: <strong>${nombre}</strong>`;
+    ` Grupo activo: <strong>${nombre}</strong>`;
  
   await cargarDatos();
-  alert(`👥 Cambiado a ${nombre}`);
+  alert(` Cambiado a ${nombre}`);
 };
  
 // ─── MODIFICAR FECHA ────────────────────────────────────────────────────────
@@ -198,12 +188,12 @@ function actualizarTabla() {
  
 function actualizarConteo(asistieron, total) {
   document.getElementById("conteo-asistencia").textContent =
-    `✅ Asistieron: ${asistieron} estudiantes`;
+    `Asistieron: ${asistieron} estudiantes`;
   document.getElementById("conteo-total").textContent =
     ` de ${total} registrados`;
 }
  
-// ─── ESCANEO QR ────────────────────────────────────────────────────────────
+
 function onScanSuccess(decodedText) {
   const raw = decodedText.trim();
   const match = raw.match(/^(E0{9}\d{6})/);
