@@ -32,6 +32,9 @@ const estudiantesPorGrupo = {
   },
   grupo4: {
     "E000000000285118": { nombre: "ARENAS SALTOS, MARIA JOSE", correo: "mariaaresal@unisabana.edu.co", programa: "ENFERMERIA" },
+  },
+  grupo5: {
+    "E000000000285118": { nombre: "ARENAS SALTOS, MARIA JOSE", correo: "mariaaresal@unisabana.edu.co", programa: "ENFERMERIA" },
   }
 };
  
